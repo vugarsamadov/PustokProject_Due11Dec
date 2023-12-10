@@ -10,9 +10,7 @@ public class VM_UpdateBook
     public string Description { get; set; }
     [Microsoft.Build.Framework.Required]
     public int CategoryId { get; set; }
-        
-    [Microsoft.Build.Framework.Required]
-    public int BrandId { get; set; }
+    
     [Microsoft.Build.Framework.Required]
     public string ProductCode { get; set; }
     [Microsoft.Build.Framework.Required]

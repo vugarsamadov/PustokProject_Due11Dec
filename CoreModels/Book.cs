@@ -9,8 +9,6 @@ namespace PustokProject.CoreModels
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int BrandId { get; set; }
-        public Brand Brand { get; set; } 
         public string ProductCode { get; set; }
         public bool IsAvailable { get; set; }
         public decimal Price { get; set; }
@@ -39,7 +37,7 @@ namespace PustokProject.CoreModels
         [NotMapped]
         public decimal? DiscountedPrice { get => !(DiscountPercentage is null or 0m) ? Price * (1 - DiscountPercentage / 100) : Price; }
 
-        
+        public ICollection<BookAuthor> BookAuthors { get; set; }
 
     }
 }

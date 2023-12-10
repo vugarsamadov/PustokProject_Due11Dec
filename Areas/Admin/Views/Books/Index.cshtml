@@ -21,9 +21,8 @@
                         <th>ProductCode</th>
                         <th>IsAvailable</th>
                         <th>ProductCode</th>
-                        <th>Brand</th>
                         <th>Category</th>
-                        <th colspan="4">Action</th>
+                        <th colspan="5">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +39,9 @@
                             <td>@book.ProductCode</td>
                             <td>@book.IsAvailable</td>
                             <td>@book.ProductCode</td>
-                            <td>@book.Brand.Name</td>
+                         
                             <td>@book.Category.Name</td>
+                            <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-controller="BookAuthors" asp-route-id="@book.Id" asp-action="Index" class="btn btn-success">Edit Authors</a></td>
                             <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Books" asp-action="UpdateBook" asp-route-id="@book.Id" class="btn btn-warning">Edit</a></td>
                             <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="BookImages" asp-action="Index" asp-route-Id="@book.Id" class="btn btn-warning">Edit Images</a></td>
                             <td><a style="display:@(book.IsDeleted ? "none" : string.Empty);)" asp-area="Admin" asp-controller="Books" asp-action="DeleteBook" asp-route-id="@book.Id" class="btn btn-danger">Delete</a></td>

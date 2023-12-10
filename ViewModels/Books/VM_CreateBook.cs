@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using PustokProject.CoreModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PustokProject.ViewModels.Books
 {
@@ -12,8 +13,6 @@ namespace PustokProject.ViewModels.Books
         public string Description { get; set; }
         [Required]
         public int CategoryId { get; set; }
-        [Required]
-        public int BrandId { get; set; }
         [Required]
         public string ProductCode { get; set; }
         
@@ -34,6 +33,10 @@ namespace PustokProject.ViewModels.Books
         {
             get; set;
         }
+        
+        public SelectList? Authors { get; set; }
+
+        public ICollection<int>? AuthorIds { get; set; }
 
     }
 }

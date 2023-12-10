@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections;
+using System.ComponentModel.DataAnnotations;
 
 namespace PustokProject.CoreModels
 {
@@ -13,7 +14,8 @@ namespace PustokProject.CoreModels
         [MaxLength(50)]
         [MinLength(3)]
         public string Surname { get; set; }
-        public ICollection<Blog> Blogs { get; set; }
+
+        public ICollection<BookAuthor> BookAuthors { get; set; }
     }
 }
     
