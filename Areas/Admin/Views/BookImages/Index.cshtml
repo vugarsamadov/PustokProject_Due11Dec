@@ -20,17 +20,18 @@
             <tr>
                 <th>Id</th>
                 <th>Image</th>
-                <th colspan="3">Action</th>
+                <th colspan="4">Action</th>
             </tr>
             </thead>
             <tbody>
             @foreach (BookImage bookImage in Model.BookImages)
             {
-                <tr style="color:@(bookImage.IsDeleted ? "white" : bookImage.IsActive ?  "white" : "black"); background-color:@(bookImage.IsDeleted ? "red" : bookImage.IsActive ?  "green" : string.Empty)" colspan="2">
+                <tr style="color:@(bookImage.IsDeleted ? "white" : bookImage.IsMatchImagePath(Model.CoverImageUrl) ?  "white" : "black"); background-color:@(bookImage.IsDeleted ? "red" : bookImage.IsMatchImagePath(Model.CoverImageUrl) ?  "green" : ( bookImage.IsMatchImagePath(Model.BackImageUrl) ? "yellow" : string.Empty))" colspan="2">
                     <td>@bookImage.Id</td>
                     <th> <img width="100" height="50" src="~/bookimages/@bookImage.ImagePath"/> </th>
-                    <td><a style="display:@(bookImage.IsDeleted || bookImage.IsActive ? "none" : String.Empty);)" asp-area="Admin" asp-controller="BookImages" asp-action="SetAsCover" asp-route-Id="@Model.BookId" asp-route-imageid="@bookImage.Id" `class="btn btn-success">Set As Cover</a></td>
-                    <td><a style="display:@(bookImage.IsDeleted ? "none" : string.Empty);)" asp-area="Admin"  asp-controller="BookImages" asp-action="DeleteBook" asp-route-Id="@Model.BookId" asp-route-imageid="@bookImage.Id"  class="btn btn-danger">Delete</a></td>
+                    <td><a style="display:@(bookImage.IsDeleted || bookImage.IsMatchImagePath(Model.CoverImageUrl) ? "none" : String.Empty);)" asp-area="Admin" asp-controller="BookImages" asp-action="SetAsCover" asp-route-Id="@Model.BookId" asp-route-imageName="@bookImage.ImagePath" `class="btn btn-success">Set As Cover</a></td>
+                    <td><a style="display:@(bookImage.IsDeleted || bookImage.IsMatchImagePath(Model.BackImageUrl) ? "none" : String.Empty);)" asp-area="Admin" asp-controller="BookImages" asp-action="SetAsBack" asp-route-Id="@Model.BookId" asp-route-imageName="@bookImage.ImagePath" `class="btn btn-success">Set As Back</a></td>
+                    <td><a style="display:@(bookImage.IsDeleted ? "none" : string.Empty);)" asp-area="Admin"  asp-controller="BookImages" asp-action="DeleteBookImage" asp-route-Id="@Model.BookId" asp-route-imageid="@bookImage.Id"  class="btn btn-danger">Delete</a></td>
                     <td><a style="display:@(bookImage.IsDeleted ? String.Empty : "none");)" asp-area="Admin" asp-controller="BookImages" asp-action="RevokeDelete" asp-route-Id="@Model.BookId" asp-route-imageid="@bookImage.Id" `class="btn btn-primary">Revoke</a></td>
                 </tr>
             }

@@ -117,8 +117,9 @@ namespace PustokProject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BrandId")
-                        .HasColumnType("int");
+                    b.Property<string>("BackImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -159,11 +160,41 @@ namespace PustokProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
-
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
+                });
+
+            modelBuilder.Entity("PustokProject.CoreModels.BookAuthor", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("date");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("BookAuthors");
                 });
 
             modelBuilder.Entity("PustokProject.CoreModels.BookImage", b =>
@@ -183,9 +214,6 @@ namespace PustokProject.Migrations
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -336,7 +364,7 @@ namespace PustokProject.Migrations
             modelBuilder.Entity("PustokProject.CoreModels.Blog", b =>
                 {
                     b.HasOne("PustokProject.CoreModels.Author", "Author")
-                        .WithMany("Blogs")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -346,21 +374,32 @@ namespace PustokProject.Migrations
 
             modelBuilder.Entity("PustokProject.CoreModels.Book", b =>
                 {
-                    b.HasOne("PustokProject.CoreModels.Brand", "Brand")
-                        .WithMany()
-                        .HasForeignKey("BrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PustokProject.CoreModels.Category", "Category")
                         .WithMany("Books")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Brand");
-
                     b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("PustokProject.CoreModels.BookAuthor", b =>
+                {
+                    b.HasOne("PustokProject.CoreModels.Author", "Author")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PustokProject.CoreModels.Book", "Book")
+                        .WithMany("BookAuthors")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("PustokProject.CoreModels.BookImage", b =>
@@ -385,11 +424,13 @@ namespace PustokProject.Migrations
 
             modelBuilder.Entity("PustokProject.CoreModels.Author", b =>
                 {
-                    b.Navigation("Blogs");
+                    b.Navigation("BookAuthors");
                 });
 
             modelBuilder.Entity("PustokProject.CoreModels.Book", b =>
                 {
+                    b.Navigation("BookAuthors");
+
                     b.Navigation("Images");
                 });
 

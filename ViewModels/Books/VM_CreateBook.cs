@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using PustokProject.CoreModels;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace PustokProject.ViewModels.Books
 {
@@ -12,8 +13,6 @@ namespace PustokProject.ViewModels.Books
         public string Description { get; set; }
         [Required]
         public int CategoryId { get; set; }
-        [Required]
-        public int BrandId { get; set; }
         [Required]
         public string ProductCode { get; set; }
         
@@ -27,7 +26,17 @@ namespace PustokProject.ViewModels.Books
         public decimal? DiscountPercentage { get; set; }
 
         [Required]
-        public IFormFile  ImageFile{ get; set; }
+        public IFormFile  ImageFileCover{ get; set; }
+
+        [Required]
+        public IFormFile ImageFileBack
+        {
+            get; set;
+        }
+        
+        public SelectList? Authors { get; set; }
+
+        public ICollection<int>? AuthorIds { get; set; }
 
     }
 }

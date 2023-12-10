@@ -24,10 +24,12 @@ public class BookImagesController : Controller
         
         var model = new VM_BookImagesAddImage();
         model.BookId = Id;
+        model.CoverImageUrl = book.CoverImageUrl;
+        model.BackImageUrl = book.BackImageUrl;
+        
         if (book.Images != null)
         {
             model.BookImages = book.Images.ToList();
-            
         }
         return View(model);
     }
@@ -56,7 +58,7 @@ public class BookImagesController : Controller
     }
     
     [HttpGet]
-    public async Task<IActionResult> DeleteBook(int Id,int imageid)
+    public async Task<IActionResult> DeleteBookImage(int Id,int imageid)
     {
         var bookImage = await _dbContext.BookImages.FirstOrDefaultAsync(bi=>bi.Id == imageid);
         bookImage.Delete();
@@ -65,16 +67,29 @@ public class BookImagesController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> SetAsCover(int Id,int imageid)
+    public async Task<IActionResult> SetAsCover(int Id,string imageName)
     {
         var book = await _dbContext.Books
             .Include(b=>b.Images)
             .Where(b => b.Id == Id).FirstOrDefaultAsync();
-        if (book != null)
+        if (book != null && book.Images.Any(b=>b.ImagePath == imageName))
         {
-            book.SetActiveImage(imageid);
+            book.SetCoverImage(imageName);
         }
-        
+        await _dbContext.SaveChangesAsync();
+        return RedirectToAction(nameof(Index), new{ Id = Id});
+    }
+    
+    [HttpGet]
+    public async Task<IActionResult> SetAsBack(int Id,string imageName)
+    {
+        var book = await _dbContext.Books
+            .Include(b=>b.Images)
+            .Where(b => b.Id == Id).FirstOrDefaultAsync();
+        if (book != null && book.Images.Any(b=>b.ImagePath == imageName))
+        {
+            book.SetBackImage(imageName);
+        }
         await _dbContext.SaveChangesAsync();
         return RedirectToAction(nameof(Index), new{ Id = Id});
     }

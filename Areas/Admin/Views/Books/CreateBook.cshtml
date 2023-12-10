@@ -1,5 +1,6 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper MVCWebAppExample.TagHelpers.*, MVCWebAppExample
+@using PustokProject.CoreModels
 @using PustokProject.ViewModels.Books;
 @model VM_CreateBook
 
@@ -42,6 +43,18 @@
         <label asp-for="ProductCode" class="form-label">ProductCode</label>
         <input type="text" class="form-control" asp-for="ProductCode">
     </div>
+    
+    
+    <div class="form-group">
+            <span asp-validation-for="Authors" class="text-danger"></span>
+            <label asp-for="ProductCode" class="form-label">Authors</label>
+        <select class="form-control" asp-for="AuthorIds" asp-items="Model.Authors" >
+            <option disabled selected> Select Author</option>
+        </select>
+        </div>
+    
+    
+    
 
     <div class="form-group">
         @* <div class="radio-container p-5"> *@
@@ -62,25 +75,43 @@
         @* </div> *@
     </div>
 
-    <label asp-for="BrandId">Brand</label>
-    <select class="form-control"  asp-for="BrandId" asp-items="ViewBag.Brands"></select>
+    
 
     <label asp-for="CategoryId">Category</label>
     <select class="form-control"  asp-for="CategoryId" asp-items="ViewBag.Categories"></select>
 
-    <input id="uploadimage" asp-for="ImageFile" type="file" accept="image/*"   />
-    <img id="img" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
+    <label asp-for="ImageFileCover">Cover Image</label>
+    <input id="uploadimage1" asp-for="ImageFileCover" type="file" accept="image/*"   />
+    <img id="img1" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
 
+    
+    <label asp-for="ImageFileBack">Back Image</label>
+    <input id="uploadimage2" asp-for="ImageFileBack" type="file" accept="image/*"   />
+    <img id="img2" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
+
+    
     <button type="submit" class="btn btn-warning">Submit</button>
 </form>
     <script>
-        var btnFile = document.getElementById("uploadimage");
-        var image = document.getElementById("img");
+        var btnFile1 = document.getElementById("uploadimage1");
+        var image1 = document.getElementById("img1");
 
-        btnFile.onchange = evt => {
-            const [file] = btnFile.files
+        btnFile1.onchange = evt => {
+            const [file] = btnFile1.files
             if (file) {
-                image.src = URL.createObjectURL(file)
+                image1.src = URL.createObjectURL(file)
             }
         }
+        
+        var btnFile2 = document.getElementById("uploadimage2");
+        var image2 = document.getElementById("img2");
+        
+                btnFile2.onchange = evt => {
+                    const [file] = btnFile2.files
+                    if (file) {
+                        image2.src = URL.createObjectURL(file)
+                    }
+                }
+        
+        
     </script>

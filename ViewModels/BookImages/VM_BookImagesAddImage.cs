@@ -11,4 +11,7 @@ public class VM_BookImagesAddImage
     public IFormFile ImageFile { get; set; }
     
     public int BookId { get; set; }
+
+    public string CoverImageUrl { get; set; }
+    public string BackImageUrl { get; set; }
 }
