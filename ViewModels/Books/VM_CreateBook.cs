@@ -27,7 +27,13 @@ namespace PustokProject.ViewModels.Books
         public decimal? DiscountPercentage { get; set; }
 
         [Required]
-        public IFormFile  ImageFile{ get; set; }
+        public IFormFile  ImageFileCover{ get; set; }
+
+        [Required]
+        public IFormFile ImageFileBack
+        {
+            get; set;
+        }
 
     }
 }

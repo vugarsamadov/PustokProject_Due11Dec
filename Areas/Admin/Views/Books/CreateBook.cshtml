@@ -68,19 +68,38 @@
     <label asp-for="CategoryId">Category</label>
     <select class="form-control"  asp-for="CategoryId" asp-items="ViewBag.Categories"></select>
 
-    <input id="uploadimage" asp-for="ImageFile" type="file" accept="image/*"   />
-    <img id="img" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
+    <label asp-for="ImageFileCover">Cover Image</label>
+    <input id="uploadimage1" asp-for="ImageFileCover" type="file" accept="image/*"   />
+    <img id="img1" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
 
+    
+    <label asp-for="ImageFileBack">Back Image</label>
+    <input id="uploadimage2" asp-for="ImageFileBack" type="file" accept="image/*"   />
+    <img id="img2" width="300" height="300" src="https://subscription.tawseel.com/images/publications/NOT_AVAILABLE.png" />
+
+    
     <button type="submit" class="btn btn-warning">Submit</button>
 </form>
     <script>
-        var btnFile = document.getElementById("uploadimage");
-        var image = document.getElementById("img");
+        var btnFile1 = document.getElementById("uploadimage1");
+        var image1 = document.getElementById("img1");
 
-        btnFile.onchange = evt => {
-            const [file] = btnFile.files
+        btnFile1.onchange = evt => {
+            const [file] = btnFile1.files
             if (file) {
-                image.src = URL.createObjectURL(file)
+                image1.src = URL.createObjectURL(file)
             }
         }
+        
+        var btnFile2 = document.getElementById("uploadimage2");
+        var image2 = document.getElementById("img2");
+        
+                btnFile2.onchange = evt => {
+                    const [file] = btnFile2.files
+                    if (file) {
+                        image2.src = URL.createObjectURL(file)
+                    }
+                }
+        
+        
     </script>

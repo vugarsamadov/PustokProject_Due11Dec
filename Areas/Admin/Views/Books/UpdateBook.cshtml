@@ -8,8 +8,9 @@
     
     <div class="flex-row">
         <img id="img" width="300" height="300" src="~/bookimages/@Model.CoverImageUrl" />
+        <img id="img" width="300" height="300" src="~/bookimages/@Model.BackImageUrl" />
 
-        <input id="updateimage" asp-for="ImageFile" type="file" accept="image/*" />
+        @* <input id="updateimage" asp-for="ImageFile" type="file" accept="image/*" /> *@
     </div>
 
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -72,19 +73,19 @@
     
 
     <button type="submit" class="btn btn-warning">Submit</button>
-    <script>
-
-
-
-        var btnFile = document.getElementById("updateimage");
-        var image = document.getElementById("img");
-
-        btnFile.onchange = evt => {
-            const [file] = btnFile.files
-            if (file) {
-                image.src = URL.createObjectURL(file)
-            }
-        }
-
-    </script>
+    @* <script> *@
+    @* *@
+    @* *@
+    @* *@
+    @*     var btnFile = document.getElementById("updateimage"); *@
+    @*     var image = document.getElementById("img"); *@
+    @* *@
+    @*     btnFile.onchange = evt => { *@
+    @*         const [file] = btnFile.files *@
+    @*         if (file) { *@
+    @*             image.src = URL.createObjectURL(file) *@
+    @*         } *@
+    @*     } *@
+    @* *@
+    @* </script> *@
 </form>

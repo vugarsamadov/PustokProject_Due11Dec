@@ -60,11 +60,25 @@ namespace PustokProject.Areas.Admin.Controllers
             book.DiscountPercentage = model.DiscountPercentage;
             book.IsAvailable = model.IsAvailable == "true";
             book.ProductCode = model.ProductCode;
-            book.CoverImageUrl = model.CoverImageUrl;
 
-            var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
-            book.CoverImageUrl = imageName;
+            
 
+            var imageNameCover = await model.ImageFileCover.SaveToRootWithUniqueNameAsync();
+            var imageNameBack = await model.ImageFileBack.SaveToRootWithUniqueNameAsync();
+            
+            var imageCover = new BookImage();
+            imageCover.ImagePath = imageNameCover;
+
+            var imageBack = new BookImage();
+            imageBack.ImagePath = imageNameBack;
+            
+            book.CoverImageUrl = imageNameCover;
+            book.BackImageUrl = imageNameBack;
+            
+            
+            book.Images.Add(imageCover);
+            book.Images.Add(imageBack);
+            
             await Context.Books.AddAsync(book);
             await Context.SaveChangesAsync();
 
@@ -100,6 +114,7 @@ namespace PustokProject.Areas.Admin.Controllers
             model.ProductCode = book.ProductCode;
 
             model.CoverImageUrl = book.CoverImageUrl;
+            model.BackImageUrl = book.BackImageUrl;
             return View(model);
         }
         [HttpPost]
@@ -130,19 +145,19 @@ namespace PustokProject.Areas.Admin.Controllers
                             book.DiscountPercentage = model.DiscountPercentage;
                             book.IsAvailable = model.IsAvailable ?? false;
                             book.ProductCode = model.ProductCode;
-            if (model.ImageFile != null)
-            {
-                var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
-                
-                BookImage bi = new();
-                bi.BookId = id;
-                bi.ImagePath = imageName;
-                bi.Activate();
-                await Context.BookImages.AddAsync(bi);
-
-                await Context.SaveChangesAsync();
-                book.CoverImageUrl = imageName;
-            }
+            // if (model.ImageFile != null)
+            // {
+            //     var imageName = await model.ImageFile.SaveToRootWithUniqueNameAsync();
+            //     
+            //     BookImage bi = new();
+            //     bi.BookId = id;
+            //     bi.ImagePath = imageName;
+            //     //bi.Activate();
+            //     await Context.BookImages.AddAsync(bi);
+            //
+            //     await Context.SaveChangesAsync();
+            //     //book.CoverImageUrl = imageName;
+            // }
             await Context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

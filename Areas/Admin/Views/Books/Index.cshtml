@@ -14,7 +14,8 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Image</th>
+                        <th>Cover Image</th>
+                        <th>Back Image</th>
                         <th>Price</th>
                         <th>DiscountedPrice</th>
                         <th>ProductCode</th>
@@ -33,6 +34,7 @@
                             <td>@book.Name</td>
                             <td>@book.Description</td>
                             <th> <img width="100" height="50" src="~/bookimages/@book.CoverImageUrl"/> </th>
+                            <th> <img width="100" height="50" src="~/bookimages/@book.BackImageUrl"/> </th>
                             <td>@book.Price</td>
                             <td>@book.DiscountedPrice</td>
                             <td>@book.ProductCode</td>
